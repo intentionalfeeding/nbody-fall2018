@@ -19,6 +19,7 @@ public class NBody {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
+		s.nextLine();
 		return s.nextDouble();
 		
 	}
