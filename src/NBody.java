@@ -22,7 +22,7 @@ public class NBody {
 		return s.nextDouble();
 		
 	}
-	public static Body[] readPlanets(String fname){
+	public static Body[] readBodies(String fname){
 		Scanner s = null;
 		try {
 			s = new Scanner(new File(fname));
@@ -47,7 +47,7 @@ public class NBody {
 			dt = Double.parseDouble(args[1]);
 			pfile = args[2];
 		}	
-		Body[] bodies = readPlanets(pfile);
+		Body[] bodies = readBodies(pfile);
 		double radius = readRadius(pfile);
 		
 		StdDraw.setScale(-readRadius(pfile), readRadius(pfile));
