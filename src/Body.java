@@ -5,6 +5,42 @@ public class Body {
 	double myYVel;
 	double myMass;
 	String myFileName;
+		public double getMyXPos() {
+		return myXPos;
+	}
+	public void setMyXPos(double myXPos) {
+		this.myXPos = myXPos;
+	}
+	public double getMyYPos() {
+		return myYPos;
+	}
+	public void setMyYPos(double myYPos) {
+		this.myYPos = myYPos;
+	}
+	public double getMyXVel() {
+		return myXVel;
+	}
+	public void setMyXVel(double myXVel) {
+		this.myXVel = myXVel;
+	}
+	public double getMyYVel() {
+		return myYVel;
+	}
+	public void setMyYVel(double myYVel) {
+		this.myYVel = myYVel;
+	}
+	public double getMyMass() {
+		return myMass;
+	}
+	public void setMyMass(double myMass) {
+		this.myMass = myMass;
+	}
+	public String getMyFileName() {
+		return myFileName;
+	}
+	public void setMyFileName(String myFileName) {
+		this.myFileName = myFileName;
+	}
 	public Body(double xP, double yP, double xV, double yV, double m, String img){
 		myXPos = xP;
 		myYPos = yP;
