@@ -35,10 +35,10 @@ public class Body {
 	public void setMass(double myMass) {
 		this.myMass = myMass;
 	}
-	public String getFileName() {
+	public String getName() {
 		return myFileName;
 	}
-	public void setMyFileName(String myFileName) {
+	public void setMyName(String myFileName) {
 		this.myFileName = myFileName;
 	}
 	public Body(double xP, double yP, double xV, double yV, double m, String img){
