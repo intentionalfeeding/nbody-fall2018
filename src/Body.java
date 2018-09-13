@@ -42,40 +42,40 @@ public class Body {
 		this.myFileName = myFileName;
 	}
 	public Body(double xP, double yP, double xV, double yV, double m, String img){
-		myXPos = xP;
-		myYPos = yP;
-		myXVel = xV;
-		myYVel = yV;
-		myMass = m;
-		myFileName = img;
+		myXPos.setX(xP);
+		myYPos.setY(yP);
+		myXVel.setXVel(xV);
+		myYVel.setYVel(yV);
+		myMass.setMass(m);
+		myFileName.setName(img);
 	}
 	public Body(Body p){
-		myXPos = p.myXPos;
-		myYPos = p.myYPos;
-		myXVel = p.myXVel;
-		myYVel = p.myYVel;
-		myMass = p.myMass;
-		myFileName = p.myFileName;
+		myXPos = p.getX();
+		myYPos = p.getY();
+		myXVel = p.getXVel();
+		myYVel = p.getYVel();
+		myMass = p.getMass();
+		myFileName = p.getName();
 	}
 	public double calcDistance(Body p){
 		double distance;
-		distance = Math.sqrt((this.myXPos-p.myXPos)*(this.myXPos-p.myXPos)+(this.myYPos-p.myYPos)*(this.myYPos-p.myYPos));
+		distance = Math.sqrt((this.getX()-p.getX())*(this.getX()-p.getX())+(this.getY()-p.getY())*(this.getY()-p.getY()));
 		return distance;
 	}
 	public double calcForceExertedBy(Body p){
 		double force;
 		double G = 6.67E-11;
-		force = G*p.myMass*this.myMass/(this.calcDistance(p)*this.calcDistance(p));	
+		force = G*p.getMass()*this.getMass()/(this.calcDistance(p)*this.calcDistance(p));	
 		return force;
 	}
 	public double calcForceExertedByX(Body p){
 		double force;
-		force = this.calcForceExertedBy(p)*(p.myXPos-this.myXPos)/this.calcDistance(p);
+		force = this.calcForceExertedBy(p)*(p.getX()-this.getX())/this.calcDistance(p);
 		return force;
 	}
 	public double calcForceExertedByY(Body p){
 		double force;
-		force = this.calcForceExertedBy(p)*(p.myYPos-this.myYPos)/this.calcDistance(p);
+		force = this.calcForceExertedBy(p)*(p.getY()-this.getY())/this.calcDistance(p);
 		return force;
 	}
 	public double calcNetForceExertedByX(Body[] p){
@@ -97,12 +97,12 @@ public class Body {
 		return force;
 	}
 	public void update(double seconds, double xforce, double yforce){
-		this.myXVel = xforce/this.myMass*seconds+this.myXVel;
-		this.myYVel = yforce/this.myMass*seconds+this.myYVel;
-		this.myXPos = this.myXVel*seconds+this.myXPos;
-		this.myYPos = this.myYVel*seconds+this.myYPos;
+		this.setXVel(xforce/this.getMass()*seconds+this.getXVel());
+		this.setYVel(yforce/this.getMass()*seconds+this.getYVel());
+		this.setX(this.getXVel()*seconds+this.getX());
+		this.setY(this.getYVel()*seconds+this.getY());
 	}
 	public void draw(){
-		StdDraw.picture(myXPos, myYPos,"images/"+myFileName);
+		StdDraw.picture(this.getX(), this.getY(),"images/"+this.getName());
 	}
 }
