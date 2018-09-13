@@ -42,12 +42,12 @@ public class Body {
 		this.myFileName = myFileName;
 	}
 	public Body(double xP, double yP, double xV, double yV, double m, String img){
-		myXPos.setX(xP);
-		myYPos.setY(yP);
-		myXVel.setXVel(xV);
-		myYVel.setYVel(yV);
-		myMass.setMass(m);
-		myFileName.setName(img);
+		myXPos=xP;
+		myYPos=yP;
+		myXVel=xV;
+		myYVel=yV;
+		myMass=m;
+		myFileName=img;
 	}
 	public Body(Body p){
 		myXPos = p.getX();
