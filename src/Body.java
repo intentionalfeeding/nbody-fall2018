@@ -1,10 +1,10 @@
 public class Body {
-	double myXPos;
-	double myYPos;
-	double myXVel;
-	double myYVel;
-	double myMass;
-	String myFileName;
+	private double myXPos;
+	private double myYPos;
+	private double myXVel;
+	private double myYVel;
+	private double myMass;
+	private String myFileName;
 	public double getX() {
 		return myXPos;
 	}
