@@ -12,84 +12,69 @@ import java.util.Scanner;
 
 public class NBody {
 	
-	/**
-	 * Read the specified file and return the radius
-	 * @param fname is name of file that can be open
-	 * @return the radius stored in the file
-	 * @throws FileNotFoundException if fname cannot be open
-	 */
-	public static double readRadius(String fname) throws FileNotFoundException  {
-		Scanner s = new Scanner(new File(fname));
-	
-		// TODO: read values at beginning of file to
-		// find the radius
-		
-		s.close();
-		
-		// TODO: return radius read
-		return 0;	
-	}
-	
-	/**
-	 * Read all data in file, return array of Celestial Bodies
-	 * read by creating an array of Body objects from data read.
-	 * @param fname is name of file that can be open
-	 * @return array of Body objects read
-	 * @throws FileNotFoundException if fname cannot be open
-	 */
-	public static Body[] readBodies(String fname) throws FileNotFoundException {
-		
-			Scanner s = new Scanner(new File(fname));
-			
-			// TODO: read # bodies, create array, ignore radius
-			int nb = 0; // # bodies to be read
-			
-			for(int k=0; k < nb; k++) {
-				
-				// TODO: read data for each body
-				// construct new body object and add to array
-			}
-			
-			s.close();
-			
-			// TODO: return array of body objects read
-			return null;
-	}
-	public static void main(String[] args) throws FileNotFoundException{
-		double totalTime = 157788000.0;
-		double dt = 25000.0;
-		
-		String fname= "./data/planets.txt";
-		if (args.length > 2) {
-			totalTime = Double.parseDouble(args[0]);
-			dt = Double.parseDouble(args[1]);
-			fname = args[2];
-		}	
-		
-		Body[] bodies = readBodies(fname);
-		double radius = readRadius(fname);
-		
-		StdDraw.setScale(-radius, radius);
-		StdDraw.picture(0,0,"images/starfield.jpg");
-	
-		for(double t = 0.0; t < totalTime; t += dt) {
-			
-			// TODO: create double arrays xforces and yforces
-			// to hold forces on each body
-			
-			// TODO: loop over all bodies, calculate
-			// net forces and store in xforces and yforces
-			
-			// TODO: loop over all bodies and call update
-			// with dt and corresponding xforces, yforces values
-			
-			StdDraw.picture(0,0,"images/starfield.jpg");
-			
-			// TODO: loop over all bodies and call draw on each one
-			
-			StdDraw.show(10);
+		public static double readRadius(String fname){
+		Scanner s = null;
+		try {
+			s = new Scanner(new File(fname));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
 		}
+		return s.nextDouble();
 		
+	}
+	public static Body[] readPlanets(String fname){
+		Scanner s = null;
+		try {
+			s = new Scanner(new File(fname));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
+		int number = s.nextInt();
+		Body[] planet = new Body[number];
+		s.nextDouble();
+		for (int k=0; k < number; k++){
+			planet[k]=new Body(s.nextDouble(),s.nextDouble(),s.nextDouble(),s.nextDouble(),s.nextDouble(),s.next());
+		}
+		return planet;
+	}
+	
+	public static void main(String[] args){
+		double T = 2000000;
+		double dt = 25000.0;
+		String pfile = "data/planets.txt";
+		if (args.length > 2) {
+			T = Double.parseDouble(args[0]);
+			dt = Double.parseDouble(args[1]);
+			pfile = args[2];
+		}	
+		Body[] bodies = readPlanets(pfile);
+		double radius = readRadius(pfile);
+		
+		StdDraw.setScale(-readRadius(pfile), readRadius(pfile));
+		StdDraw.picture(0, 0, "images/starfield.jpg");
+		for (int k=0; k < 5; k++){
+			bodies[k].draw();
+		}
+		double time = 0;
+		while (time < T){
+			double[] xForces = new double[5];
+			double[] yForces = new double[5];
+		for (int k=0; k < 5; k++){
+			xForces[k] = bodies[k].calcNetForceExertedByX(bodies);
+			yForces[k] = bodies[k].calcNetForceExertedByY(bodies);
+		}
+		for (int k=0; k < 5; k++){
+			bodies[k].update(dt, xForces[k], yForces[k]);
+		}
+		StdDraw.setScale(-readRadius(pfile), readRadius(pfile));
+		StdDraw.picture(0, 0, "images/starfield.jpg");
+		for (int k=0; k < 5; k++){
+			bodies[k].draw();
+		}
+		StdDraw.show(100);
+		time += dt;
+		}
+	
 		// prints final values after simulation
 		
 		System.out.printf("%d\n", bodies.length);
