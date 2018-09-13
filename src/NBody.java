@@ -40,7 +40,7 @@ public class NBody {
 	}
 	
 	public static void main(String[] args){
-		double T = 2000000;
+		double T = 157788000.0;
 		double dt = 25000.0;
 		String pfile = "data/planets.txt";
 		if (args.length > 2) {
@@ -53,23 +53,25 @@ public class NBody {
 		
 		StdDraw.setScale(-readRadius(pfile), readRadius(pfile));
 		StdDraw.picture(0, 0, "images/starfield.jpg");
-		for (int k=0; k < 5; k++){
+		Scanner s = new Scanner(pfile);
+		int number = s.nextInt();
+		for (int k=0; k < number; k++){
 			bodies[k].draw();
 		}
 		double time = 0;
 		while (time < T){
 			double[] xForces = new double[5];
 			double[] yForces = new double[5];
-		for (int k=0; k < 5; k++){
+		for (int k=0; k < number; k++){
 			xForces[k] = bodies[k].calcNetForceExertedByX(bodies);
 			yForces[k] = bodies[k].calcNetForceExertedByY(bodies);
 		}
-		for (int k=0; k < 5; k++){
+		for (int k=0; k < number; k++){
 			bodies[k].update(dt, xForces[k], yForces[k]);
 		}
 		StdDraw.setScale(-readRadius(pfile), readRadius(pfile));
 		StdDraw.picture(0, 0, "images/starfield.jpg");
-		for (int k=0; k < 5; k++){
+		for (int k=0; k < number; k++){
 			bodies[k].draw();
 		}
 		StdDraw.show(100);
