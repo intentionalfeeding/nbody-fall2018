@@ -58,22 +58,22 @@ public class NBody {
 		}
 		double time = 0;
 		while (time < T){
-			double[] xForces = new double[5];
-			double[] yForces = new double[5];
-		for (int k=0; k < bodies.length; k++){
-			xForces[k] = bodies[k].calcNetForceExertedByX(bodies);
-			yForces[k] = bodies[k].calcNetForceExertedByY(bodies);
-		}
-		for (int k=0; k < bodies.length; k++){
-			bodies[k].update(dt, xForces[k], yForces[k]);
-		}
-		StdDraw.setScale(-readRadius(pfile), readRadius(pfile));
-		StdDraw.picture(0, 0, "images/starfield.jpg");
-		for (int k=0; k < bodies.length; k++){
+			double[] xForces = new double[bodies.length];
+			double[] yForces = new double[bodies.length];
+			for (int k=0; k < bodies.length; k++){
+				xForces[k] = bodies[k].calcNetForceExertedByX(bodies);
+				yForces[k] = bodies[k].calcNetForceExertedByY(bodies);
+			}
+			for (int k=0; k < bodies.length; k++){
+				bodies[k].update(dt, xForces[k], yForces[k]);
+			}
+			StdDraw.setScale(-readRadius(pfile), readRadius(pfile));
+			StdDraw.picture(0, 0, "images/starfield.jpg");
+			for (int k=0; k < bodies.length; k++){
 			bodies[k].draw();
-		}
-		StdDraw.show(100);
-		time += dt;
+			}
+			StdDraw.show(100);
+			time += dt;
 		}
 	
 		// prints final values after simulation
